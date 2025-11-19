@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juicy to the Last Bite</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJzL31rFA9tQ/S8R5k/wY6p9K2GfT6GzL5Sg9r5K/j/R/L7wP2gU/j/Y6f5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Define Brand Colors using CSS Variables for easy reference */
+        :root {
+            --color-primary: #ffa600;
+            /* Deep Red/Maroon */
+            --color-accent: #ffa600;
+            /* Bright Orange/Gold */
+            --color-dark: #ffffff;
+            /* Dark Grey for text */
+        }
+
+        /* Custom styles for Menu Item dotted line */
+        .menu-item-separator {
+            content: "";
+            flex-grow: 1;
+            border-bottom: 2px dotted var(--color-accent);
+            margin: 0 0.5rem;
+            transform: translateY(-0.25rem);
+            /* Align with text baseline */
+        }
+
+        .text-brand-primary {
+            color: var(--color-primary);
+        }
+
+        .bg-brand-primary {
+            background-color: var(--color-primary);
+        }
+
+        .text-brand-accent {
+            color: var(--color-accent);
+        }
+
+        .bg-brand-accent {
+            background-color: var(--color-accent);
+        }
+
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom style for the tagline: Ink Free, italic, with cursive fallback */
+        .italic-ink-free {
+            font-family: 'Ink Free', cursive;
+            font-style: italic;
+        }
+
+        /* FIX: Ensure no horizontal scrolling on mobile */
+        body {
+            overflow-x: hidden;
+        }
+
+        /* CSS to hide the standard scrollbar for the category container */
+        #category-list-wrapper {
+            /* For IE and Edge */
+            -ms-overflow-style: none;
+            /* For Firefox */
+            scrollbar-width: none;
+        }
+
+        /* For Chrome, Safari, and Opera */
+        #category-list-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-primary': 'var(--color-primary)',
+                        'brand-accent': 'var(--color-accent)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<!-- Changed text-gray-800 (black) to text-white -->
+
+<body class="font-inter text-white bg-fixed bg-center bg-cover bg-no-repeat" style="background-image: url(Back.jpg);">
+
+    <!-- Header & Navigation -->
+    <header class=" z-50 ">
+        <nav
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center sm:justify-between justify-center flex-wrap gap-3">
+            <!-- Logo Text and Tagline (Top Left) -->
+            <div class="flex items-center space-x-3">
+                <!-- Replaced Logo.png with a placeholder for robust preview -->
+                <img src="Logo.png" alt="Logo" class="w-auto h-12" width="180">
+
+                <span class="text-2xl font-extrabold text-brand-primary hidden sm:block italic-ink-free">
+                    Juicy to the last bite
+                </span>
+            </div>
+
+            <!-- Navigation Buttons (Top Right) -->
+            <div class="flex items-center space-x-2 sm:space-x-4">
+
+                <!-- Button 1: Order Now -->
+                <a href="https://wa.me/message/GCCQJTH6ZQF6O1" target="_blank"
+                    class="px-4 py-2 bg-brand-accent text-white font-bold rounded-lg shadow-md hover:bg-yellow-600 transition duration-200">
+                    Order Now
+                </a>
+
+                <!-- Button 2: Contact Us (Triggers Modal) -->
+                <button id="contactBtn"
+                    class="px-4 py-2 bg-brand-primary text-white font-bold rounded-lg shadow-md hover:bg-red-700 transition duration-200">
+                    Contact Us
+                </button>
+
+                <!-- Button 3: About Us (Internal Navigation) -->
+                <button onclick="navigateTo('about')" id="aboutBtn"
+                    class="px-4 py-2 text-brand-primary font-bold rounded-lg border-2 border-brand-primary hover:bg-red-50 transition duration-200 hidden sm:inline-block">
+                    About Us
+                </button>
+
+                <!-- Button 4: Reviews -->
+                <a href="https://www.google.com/search?sca_esv=f517df8b24517ced&rlz=1C1OPNX_enPK1170PK1175&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E7kFNrDZpqn1aSVkbn9eTohti_y6CJ8ibj1wD_SiO2uX1UKAxVtDJS7TU3fIYx_9JFPDUASHoWK4v1sV2jP63DOzHvQ7&q=Mr.+Beef+Burgrz+Reviews&sa=X&ved=2ahUKEwiv5anGtfKQAxXYSGwGHQyqMWwQ0bkNegQIMRAE&biw=1366&bih=641&dpr="
+                    target="_blank"
+                    class="px-4 py-2 text-brand-accent font-bold rounded-lg border-2 border-brand-accent hover:bg-yellow-50 transition duration-200 hidden sm:inline-block">
+                    Reviews
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="sm:hidden text-brand-primary focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobileMenu" class="hidden sm:hidden w-full bg-white border-t border-gray-100">
+            <button onclick="navigateTo('about')"
+                class="block w-full text-left px-4 py-2 text-brand-primary hover:bg-red-50">
+                About Us
+            </button>
+            <a href="https://www.google.com/search?client=ms-android-transsion&sca_esv=ad5d78fe25a26ce1&sxsrf=AE3TifMP6jQx5KtdDsNkvCLn9DRGr9mEzA:1763060326738&q=mr.+beef+burgrz+karachi+reviews&uds=AOm0WdHIVNUC21gwMJq31-PPV80qpnBlZESM8gnmDrnNZB5im01t1O1VYcRE_3gz-gFDkXPB0vxzlAOCfLOzXoRMIIINzDsGwNk7yiaQl5hYWmDq1LKllFglZxQ2KEQlth-hFn6msznvqcdbknIBP2NuqisZn2rob3g61pOis3J25KCmKm_hrSKd-5mcH-T0qTBU-7pLb3t_ilfp-ihUf8TojYKTv8zoXUJsdWU5-955vEa96ktc6WQalE5uJZd2Six1W2QrFSfvp7ckJbQiN12i22yXmXZS0Js7B8hdyD5BK358PJS7-0KdkhJdcfG6doIVNxKY3JcJLfOHAdHxseFJhTWB2CBiKF2iAr8IMMtruB45BR5jV8ht6S00L9G4lccPNJ0pRz5js2AKxGaazY-UyG5TaEO9GLlmBI9gFLMg044u6R2pB4qub_-_ln9YmmzJzaOUiADGrgWGdPXQZCzq96waeMJOkm23N3rV_wfH8j93qlwh_7NGD94fmYwHYzv6-_zOhdGk8v7Pu8fMbM_GNhzen2p1g&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E7kFNrDZpqn1aSVybn9eTojZWiAACrgfYtDHZOuGH0lXbntthIjLPGW2ys9J0Q6tY0jdSoZykH0LXN41ol4Om2EgFtNR0V4UA6r-vUnTgZoVBYcrEQ%3D%3D&sa=X&ved=2ahUKEwjwp_jD5--QAxXHaEEAHWOHFXMQk8gLegUIoQEQAQ&ictx=1&stq=1&cs=1&lei=ZioWafDcLMfRhbIP447WmAc#ebo=5"
+                target="_blank" class="block w-full text-left px-4 py-2 text-brand-accent hover:bg-yellow-50">
+                Reviews
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <!-- Animated PNG -->
+        <div class="flex justify-center items-center p-6">
+            <img src="beef.png" alt="Animated PNG" class="w-full max-w-[100px] sm:max-w-[200px] animate-float" />
+            <img src="zing.png" alt="Animated PNG" class="w-full max-w-[120px] sm:max-w-[200px] animate-float" />
+        </div>
+
+        <style>
+            @keyframes float {
+                0% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-12px);
+                }
+
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+        </style>
+
+        <!-- Home/Menu Page View -->
+        <section id="home" class="view-section">
+            <h1 class="text-5xl md:text-6xl font-black text-center text-brand-primary mb-10 mt-6">
+                Choose what to order?
+            </h1>
+
+            <!-- Category Menu Bar with Custom Carousel Scrolling -->
+            <nav class="sticky top-0 bg-white/0 backdrop-blur-xl shadow-xl z-20 border-b-2 border-red-500">
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <!-- Left Scroll Button -->
+                    <!-- REMOVED MD:BLOCK TO SHOW ON MOBILE -->
+                    <button id="scroll-left-btn"
+                        class="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2 ml-1 bg-white rounded-full shadow-lg hover:bg-gray-100 transition duration-150 text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/50"
+                        aria-label="Scroll left">
+                        <i class="fas fa-chevron-left text-xl"></i>
+                    </button>
+
+                    <!-- Scrollable List Wrapper (native scrollbar hidden via CSS) -->
+                    <div id="category-list-wrapper"
+                        class="flex overflow-x-scroll scrolling-touch space-x-6 py-3 justify-start md:justify-center">
+
+                        <div id="category-container" class="flex space-x-6">
+                            <!-- Category Links will be injected here by the script -->
+                        </div>
+
+                    </div>
+
+                    <!-- Right Scroll Button -->
+                    <!-- REMOVED MD:BLOCK TO SHOW ON MOBILE -->
+                    <button id="scroll-right-btn"
+                        class="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2 mr-1 bg-white rounded-full shadow-lg hover:bg-gray-100 transition duration-150 text-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/50"
+                        aria-label="Scroll right">
+                        <i class="fas fa-chevron-right text-xl"></i>
+                    </button>
+
+                </div>
+            </nav>
+
+            <!-- JavaScript for Category Generation and Scrolling -->
+            <script>
+                function scrollToElement(element, percentage) {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const scrollPosition = elementTop - window.innerHeight * percentage;
+                    window.scrollBy({
+                        top: scrollPosition,
+                        behavior: "smooth",
+                    });
+                }
+
+                function isViewportMin(minWidth) {
+                    const query = `(min-width: ${minWidth}px)`;
+                    return window.matchMedia(query).matches;
+                }
+
+                // --- Breakpoints ---
+                const smBreakpoint = 576;
+                const mdBreakpoint = 768;
+                const lgBreakpoint = 992;
+                const xlBreakpoint = 1200;
+
+                const categories = [
+                    { name: "Beef Burgers", target: "house-of-beef", img: "beef.png" },
+                    { name: "Zingsters", target: "zingsters", img: "zing.png" },
+                    { name: "Grilled Burgers", target: "flame-grilled-burgers", img: "grilled.png" },
+                    { name: "Broast", target: "chicken-broast", img: "broast.png" },
+                    { name: "Nuggets", target: "chicken-nuggets", img: "nug.png" },
+                    { name: "FRIES", target: "variety-of-fries", img: "fries.png" },
+                    { name: "Beverages", target: "beverages", img: "drink.png" },
+                    { name: "Add on", target: "add-on", img: "add.png" },
+                ];
+
+                const container = document.getElementById('category-container');
+                const listWrapper = document.getElementById('category-list-wrapper');
+
+                categories.forEach(category => {
+                    const link = document.createElement('a');
+                    // Changed text-gray-800 to text-white for visibility against the background
+                    link.href = 'javascript:void(0);';
+                    link.setAttribute('data-scroll-to-elemet', category.target);
+                    link.className = 'category-link flex flex-col items-center flex-shrink-0 p-2 text-center text-white hover:text-brand-primary transition duration-200 rounded-lg hover:bg-red-50';
+
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center border-2 border-brand-primary overflow-hidden shadow-md';
+
+                    const img = document.createElement('img');
+                    img.src = category.img; // different img per category
+                    img.alt = `${category.name} Logo`;
+                    img.className = 'w-full h-full object-cover p-1';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'mt-1 text-xs font-semibold whitespace-nowrap px-1';
+                    nameSpan.textContent = category.name;
+
+                    imgContainer.appendChild(img);
+                    link.appendChild(imgContainer);
+                    link.appendChild(nameSpan);
+                    container.appendChild(link);
+
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('data-scroll-to-elemet');
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+
+                            let scrollOffset = 0.15;
+                            if (isViewportMin(xlBreakpoint)) {
+                                scrollOffset = 0.35;
+                            } else if (isViewportMin(lgBreakpoint)) {
+                                scrollOffset = 0.35;
+                            } else if (isViewportMin(mdBreakpoint)) {
+                                scrollOffset = 0.3;
+                            } else if (isViewportMin(smBreakpoint)) {
+                                scrollOffset = 0.25;
+                            }
+
+                            scrollToElement(targetElement, scrollOffset);
+                        }
+                    });
+                });
+
+                const scrollLeftBtn = document.getElementById('scroll-left-btn');
+                const scrollRightBtn = document.getElementById('scroll-right-btn');
+                const scrollDistance = 250;
+
+                scrollLeftBtn.addEventListener('click', () => {
+                    listWrapper.scrollBy({ left: -scrollDistance, behavior: 'smooth' });
+                });
+
+                scrollRightBtn.addEventListener('click', () => {
+                    listWrapper.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+                });
+            </script>
+
+            <!-- Menu Content -->
+            <!-- The grid is responsive by default: 1 column on all screens, 2 columns on large screens (lg) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+
+                <!-- Column 1: Beef Burgers & Chicken -->
+                <section id="house-of-beef">
+                    <div>
+                        <!-- HOUSE OF BEEF -->
+                        <h2
+                            class="text-3xl font-extrabold text-brand-accent border-b-4 border-brand-accent/50 pb-2 mb-6">
+                            HOUSE OF BEEF
+                        </h2>
+
+
+                        <!-- All Classic -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-brand-primary mb-3">All Classic</h3>
+                            <div class="space-y-4">
+                                <!-- Item: Vintage Beef -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Vintage Beef</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">650/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 125g beef patty, single
+                                        cheddar cheese slice, iceberg, raw onion & tomato, honey mustard sauce</p>
+                                </div>
+                                <!-- Item: American Classic -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">American Classic</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">690/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 125g beef patty, single
+                                        cheddar cheese slice, iceberg, raw onion, tomato, pickles, chef's signature
+                                        sauce</p>
+                                </div>
+                                <!-- Item: Barbecue Smash -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Barbecue Smash</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">650/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 125g beef patty, single
+                                        cheddar cheese slice, grilled onion, barbecue sauce</p>
+                                </div>
+                                <!-- Item: Hot Jalapeño Smash -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Hot Jalapeño Smash</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">680/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 125g beef patty, single
+                                        cheddar cheese slice, iceberg, jalapeño, hot jalapeño sauce</p>
+                                </div>
+                                <!-- Item: Pocket Smash -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Pocket Smash</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">450/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 70g beef patty, single
+                                        cheddar cheese slice, iceberg, honey mustard sauce</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Premium Burgers -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-brand-primary mb-3">Premium (Calories Loaded)</h3>
+                            <div class="space-y-4">
+                                <!-- Item: Pepperoni Smash -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Pepperoni Smash</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">850/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 150g beef patty, two cheddar
+                                        cheese slices, beef pepperoni, honey mustard sauce</p>
+                                </div>
+                                <!-- Item: Mashroom Smash -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Mashroom Smash</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">850/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 150g beef patty, two cheddar
+                                        cheese slices, caramelized onion, grilled onions & mushrooms, honey mustard
+                                        sauce</p>
+                                </div>
+                                <!-- Item: Majestic Double -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Majestic Double</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">950/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 2x 125g beef patties, 2x
+                                        cheddar cheese slices, iceberg, chef's signature sauce</p>
+                                </div>
+                                <!-- Item: Triple Smash Tower -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Triple Smash Tower</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">1300/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Brioche bun, 3x 125g beef patties, 3x
+                                        cheddar cheese slices, caramelized onions, chef's signature sauce</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Column 2: Chicken, Fries, Beverages, Add Ons -->
+
+                <section id="zingsters">
+                    <div>
+                        <!-- HOUSE OF CHICKEN -->
+                        <h2
+                            class="text-3xl font-extrabold text-brand-accent border-b-4 border-brand-accent/50 pb-2 mb-6">
+                            HOUSE OF CHICKEN
+                        </h2>
+                        <!-- Zingsters -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-brand-primary mb-3">Zingsters</h3>
+                            <div class="space-y-4">
+                                <!-- Mini Zingster -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Mini Zingster</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">320/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Potato bun, crispy chicken patty, iceberg,
+                                        chipotle sauce</p>
+                                </div>
+                                <!-- Zingster -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Zingster</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">500/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Potato bun, crispy chicken patty, iceberg,
+                                        chef's signature sauce</p>
+                                </div>
+                                <!-- Jalapeño Zingster -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Jalapeño Zingster</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">650/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Potato bun, crispy chicken patty, single
+                                        cheddar cheese slice, jalapeño, iceberg, hot jalapeño sauce</p>
+                                </div>
+                                <!-- Pepperoni Zingster -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Pepperoni Zingster</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">650/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Potato bun, crispy chicken patty, single
+                                        cheddar cheese slice, chicken pepperoni, iceberg, honey mustard sauce</p>
+                                </div>
+                                <!-- Mashroom Zingster -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Mashroom Zingster</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">700/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Potato bun, crispy chicken patty, single
+                                        cheddar cheese slice, mushrooms, honey mustard sauce</p>
+                                </div>
+                                <!-- Double Cruncher -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Double Cruncher</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">800/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Potato bun, two crispy chicken patties,
+                                        double cheddar cheese slices, iceberg, chef's signature sauce</p>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                <!-- Flame-Grilled Burgers -->
+                <section id="flame-grilled-burgers">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold text-brand-primary mb-3">Flame-Grilled Burgers</h3>
+                        <div class="space-y-4">
+                            <!-- Grilled Chicken -->
+                            <div class="flex flex-col">
+                                <div class="flex items-end justify-between text-lg font-semibold">
+                                    <span class="text-lg">Grilled Chicken</span>
+                                    <div class="menu-item-separator mx-2"></div>
+                                    <span class="text-xl text-brand-primary whitespace-nowrap">600/-</span>
+                                </div>
+                                <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                <p class="text-sm text-yellow-400 italic">Potato bun, mild spicy chicken fillet with a
+                                    single cheddar cheese slice, iceberg, raw onion & tomato, chef's signature sauce</p>
+                            </div>
+                            <!-- Hot Grilled Chicken -->
+                            <div class="flex flex-col">
+                                <div class="flex items-end justify-between text-lg font-semibold">
+                                    <span class="text-lg">Hot Grilled Chicken</span>
+                                    <div class="menu-item-separator mx-2"></div>
+                                    <span class="text-xl text-brand-primary whitespace-nowrap">650/-</span>
+                                </div>
+                                <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                <p class="text-sm text-yellow-400 italic">Potato bun, mild spicy chicken fillet with a
+                                    single cheddar cheese slice, iceberg, grilled onion, jalapeños, hot jalapeño sauce
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Chicken Broast & Nuggets -->
+                <section id="chicken-broast">
+                    <div class="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-brand-primary mb-3">Chicken Broast</h3>
+                            <div class="space-y-4">
+                                <!-- Qtr. Broast (Chest) -->
+                                <div class="flex flex-col">
+                                    <div class="flex items-end justify-between text-lg font-semibold">
+                                        <span class="text-lg">Qtr. Broast (Chest)</span>
+                                        <div class="menu-item-separator mx-2"></div>
+                                        <span class="text-xl text-brand-primary whitespace-nowrap">550/-</span>
+                                    </div>
+                                    <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                                    <p class="text-sm text-yellow-400 italic">Salted chest broast, fries, bun, taumiya
+                                        sauce</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                </section>
+                <section id="chicken-nuggets">
+                    <h3 class="text-2xl font-bold text-brand-primary mb-3 mt-8 sm:mt-0">Chicken Nuggets</h3>
+                    <div class="space-y-4">
+                        <!-- 6 Pieces Nuggets -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">6 Pieces Nuggets</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">400/-</span>
+                        </div>
+                        <!-- 12 Pieces Nuggets -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">12 Pieces Nuggets</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">750/-</span>
+                        </div>
+                        <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                        <p class="text-sm text-yellow-400 italic mt-1">Serve with garlic sauce</p>
+                    </div>
+                </section>
+            </div>
+            </div>
+            </div>
+            </div> <!-- End of Burger/Chicken Grid -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+                <!-- VARIETY OF FRIES -->
+                <section id="variety-of-fries">
+                    <div>
+                        <h2
+                            class="text-3xl font-extrabold text-brand-accent border-b-4 border-brand-accent/50 pb-2 mb-6">
+                            🍟 VARIETY OF FRIES
+                        </h2>
+                        <div class="space-y-4">
+                            <!-- Salted Fries (Regular/Large) -->
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Salted Fries (Regular)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">150/-</span>
+                            </div>
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Salted Fries (Large)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">250/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic mt-1">Classic salted fries</p>
+                            <hr class="border-gray-200">
+
+                            <!-- Garlic Fries (Regular/Large) -->
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Garlic Fries (Regular)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">200/-</span>
+                            </div>
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Garlic Fries (Large)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">300/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic mt-1">Crispy fries topped with a creamy garlic
+                                sauce</p>
+                            <hr class="border-gray-200">
+
+                            <!-- Chipotle Fries (Regular/Large) -->
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Chipotle Fries (Regular)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">200/-</span>
+                            </div>
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Chipotle Fries (Large)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">300/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic mt-1">Crispy fries topped with a smoky chipotle
+                                sauce</p>
+                            <hr class="border-gray-200">
+
+                            <!-- Cheese Fries (Regular/Large) -->
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Cheese Fries (Regular)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">350/-</span>
+                            </div>
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Cheese Fries (Large)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">600/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic mt-1">Bed of fries, cheddar cheese slices</p>
+                            <hr class="border-gray-200">
+
+                            <!-- Smash Fries (Regular/Loaded) -->
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Smash Fries (Regular)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">450/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic -mt-2">Bed of fries, 70g beef smashed patty, single
+                                cheddar cheese slice, garlic sauce</p>
+
+                            <div class="flex items-end justify-between text-lg font-semibold mt-4">
+                                <span class="text-lg">Smash Fries (Loaded)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">850/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic -mt-2">Bed of fries, 2x beef smashed patties,
+                                double cheddar cheese slices, grilled mushrooms, jalapeño, beef pepperoni, honey mustard
+                                sauce</p>
+                            <hr class="border-gray-200">
+
+                            <!-- Crunch Fries (Regular/Loaded) -->
+                            <div class="flex items-end justify-between text-lg font-semibold">
+                                <span class="text-lg">Crunch Fries (Regular)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">450/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic -mt-2">Bed of fries, crispy chicken chunks, single
+                                cheddar cheese slice, chef's signature sauce</p>
+
+                            <div class="flex items-end justify-between text-lg font-semibold mt-4">
+                                <span class="text-lg">Crunch Fries (Loaded)</span>
+                                <div class="menu-item-separator mx-2"></div>
+                                <span class="text-xl text-brand-primary whitespace-nowrap">850/-</span>
+                            </div>
+                            <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                            <p class="text-sm text-yellow-400 italic -mt-2">Bed of fries, 2x crispy chicken chunks,
+                                double cheese slices, grilled mushrooms, jalapeño, chicken pepperoni, hot jalapeño sauce
+                            </p>
+
+                        </div>
+                    </div>
+                </section>
+                <!-- Beverages & Add Ons -->
+                <div id="beverages">
+                    <!-- Beverages -->
+                    <h2 class="text-3xl font-extrabold text-brand-accent border-b-4 border-brand-accent/50 pb-2 mb-6">
+                        🥤 Beverages
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- Cold Drink -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Cold Drink 345 ml</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">100/-</span>
+                        </div>
+                        <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                        <p class="text-sm text-yellow-400 italic -mt-2">(Cola Next & Fizzup Next)</p>
+
+                        <!-- Mineral Water -->
+                        <div class="flex items-end justify-between text-lg font-semibold mt-4">
+                            <span class="text-lg">Mineral Water (Small)</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">60/-</span>
+                        </div>
+                        <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                        <p class="text-sm text-yellow-400 italic -mt-2">(Pakola)</p>
+                    </div>
+
+                    <!-- Add Ons -->
+                    <h2 id="add-on"
+                        class="text-3xl font-extrabold text-brand-accent border-b-4 border-brand-accent/50 pb-2 mt-8 mb-6">
+                        ➕ Add On
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- Beef Patty 70g -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Beef Patty 70g</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">200/-</span>
+                        </div>
+                        <!-- Beef Patty 125g -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Beef Patty 125g</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">300/-</span>
+                        </div>
+                        <!-- Crispy Chicken Patty -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Crispy Chicken Patty</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">250/-</span>
+                        </div>
+                        <!-- Grilled Chicken Fillet -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Grilled Chicken Fillet</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">250/-</span>
+                        </div>
+                        <!-- Beef/Chicken Pepperoni -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Beef/Chicken Pepperoni</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">100/-</span>
+                        </div>
+                        <!-- Cheddar Cheese Slice -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Cheddar Cheese Slice</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">60/-</span>
+                        </div>
+                        <!-- Bun -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Bun</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">40/-</span>
+                        </div>
+                        <!-- Dip Sauce -->
+                        <div class="flex items-end justify-between text-lg font-semibold">
+                            <span class="text-lg">Dip Sauce</span>
+                            <div class="menu-item-separator mx-2"></div>
+                            <span class="text-xl text-brand-primary whitespace-nowrap">70/-</span>
+                        </div>
+                        <!-- Changed text-gray-500 (light grey) to text-yellow-400 -->
+                        <p class="text-sm text-yellow-400 italic -mt-2">Garlic Sauce/Chipotle Sauce/Barbecue Sauce/Honey
+                            Mustard Sauce/Hot Jalapeño Sauce/Chef's Signature Sauce</p>
+                    </div>
+                </div>
+
+            </div> <!-- End of Fries/Addons Grid -->
+        </section>
+
+        <!-- About Us Page View (Initially Hidden) -->
+        <section id="about" class="view-section hidden">
+            <div class="max-w-4xl mx-auto py-12">
+
+                <!-- Back to Menu Button (NEW) -->
+                <div class="mb-8">
+                    <button onclick="navigateTo('home')"
+                        class="text-brand-primary hover:text-red-700 font-bold flex items-center p-2 rounded-lg transition duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Menu
+                    </button>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl font-black text-center text-brand-primary mb-10 mt-6">
+                    About Us Mr. Beef Burgrz
+                </h1>
+                <!-- Kept text dark (text-gray-700 -> text-gray-800) for contrast on the white background (bg-white) -->
+                <div
+                    class="space-y-6 text-lg text-white-1000 leading-relaxed p-6 md:p-10 rounded-xl shadow-lg border-t-4 border-brand-accent text-justify backdrop-blur-xl bg-black/80">
+
+                    <p>
+                        Alhamdulillah, Mr. Beef Burgrz was founded with one simple mission: to bring authentic, premium
+                        quality smash burgers to the people of Malir and soon expand across the region. What started as
+                        a passion for real beef flavour has grown into a local favourite known for quality, consistency,
+                        and taste that speaks for itself.
+                    </p>
+                    <p>
+                        At Mr. Beef Burgrz, we don’t compromise. From 100% pure beef patties to freshly baked brioche
+                        buns, every ingredient is hand picked to deliver that perfect smash: juicy, flavourful, and
+                        cooked to perfection.
+                    </p>
+                    <p>
+                        We believe great food starts with passion and ends with satisfaction. That’s why our team
+                        focuses on maintaining premium standards, hygiene, and freshness in every single order.
+                    </p>
+                    <p>
+                        Whether you’re dining in, taking away, or enjoying it at home, we promise one thing: a burger
+                        experience you’ll always come back for.
+                    </p>
+                    <p class="text-center font-extrabold text-2xl text-brand-accent pt-4">
+                        Mr. Beef Burgrz – Where Real Beef Meets Real Taste. <span class="text-brand-primary">Juicy to
+                            the Last Bite!</span>
+                    </p>
+                </div>
+
+                <!-- Contact us button replicate from header -->
+                <div class="text-center mt-10">
+                    <button onclick="document.getElementById('contactModal').classList.remove('hidden')"
+                        class="px-8 py-3 bg-brand-primary text-white font-bold text-xl rounded-lg shadow-xl hover:bg-red-700 transition duration-200">
+                        Contact Us
+                    </button>
+                </div>
+
+                <!-- Back to Menu Button (at the bottom as well) -->
+                <div class="text-center mt-6">
+                    <button onclick="navigateTo('home')"
+                        class="text-brand-primary hover:text-red-700 font-bold flex items-center justify-center p-2 rounded-lg transition duration-200 mx-auto">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Menu
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-red-800 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-2xl font-bold text-white mb-6">Find Us & Follow Us!</h3>
+
+
+            <!-- Social Icons (Responsive adjustment: added flex-wrap and gap to prevent overflow on mobile)-->
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-4 mb-6">
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/mr.beefburgrz?igsh=bW5xZm43bmR6Ymsw" target="_blank"
+                    class="text-white hover:text-brand-accent transition duration-200">
+                    <i class="fab fa-instagram text-4xl"></i>
+                    <p class="text-sm mt-1">Instagram</p>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1A5ejXApa7/" target="_blank"
+                    class="text-white hover:text-brand-accent transition duration-200">
+                    <i class="fab fa-facebook-f text-4xl"></i>
+                    <p class="text-sm mt-1">Facebook</p>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtube.com/@mrbeefburgrz?si=vQ-h8ygT5oiEFdEo" target="_blank"
+                    class="text-white hover:text-brand-accent transition duration-200">
+                    <i class="fab fa-youtube text-4xl"></i>
+                    <p class="text-sm mt-1">YouTube</p>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@mrbeefburgrz?_r=1&_t=ZS-91N9HD5GTdx" target="_blank"
+                    class="text-white hover:text-brand-accent transition duration-200">
+                    <i class="fab fa-tiktok text-4xl"></i>
+                    <p class="text-sm mt-1">TikTok</p>
+                </a>
+
+                <!-- Google -->
+                <a href="https://share.google/X6kMXGJT6u7oitf91" target="_blank"
+                    class="text-white hover:text-brand-accent transition duration-200">
+                    <i class="fab fa-google text-4xl"></i>
+                    <p class="text-sm mt-1">Google</p>
+                </a>
+
+                <!-- Location -->
+                <a href="https://maps.app.goo.gl/Y4brSsZDP2oCEQKTA" target="_blank"
+                    class="text-white hover:text-brand-accent transition duration-200">
+                    <i class="fas fa-map-marker-alt text-4xl"></i>
+                    <p class="text-sm mt-1">Location</p>
+                </a>
+
+            </div>
+            <!-- Contact Us (Right Side in Footer) -->
+            <div class="mx-auto text-center">
+                <!-- Heading -->
+                <h3 class="text-lg font-bold text-white mb-4">Contact Us</h3>
+
+                <div class="flex flex-col items-center 
+                md:flex-row md:items-center md:justify-center 
+                md:space-x-6 space-y-3 md:space-y-0">
+
+                    <!-- Call -->
+                    <a href="tel:+923240460398"
+                        class="flex items-center justify-center text-white hover:text-brand-accent transition duration-200 space-x-2">
+                        <i class="fas fa-phone-alt text-xl"></i>
+                        <span>+92 324 0460398</span>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/message/GCCQJTH6ZQF6O1" target="_blank"
+                        class="flex items-center justify-center text-white hover:text-brand-accent transition duration-200 space-x-2">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>WhatsApp Us</span>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="mailto:mr.beefburgrz@gmail.com"
+                        class="flex items-center justify-center text-white hover:text-brand-accent transition duration-200 space-x-2">
+                        <i class="fas fa-envelope text-xl"></i>
+                        <span>mr.beefburgrz@gmail.com</span>
+                    </a>
+
+                </div>
+            </div>
+
+            <p class="text-white/80 text-sm mt-4">&copy; 2025 Mr. Beef Burgrz. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- Contact Us Modal (Initially Hidden) -->
+    <div id="contactModal"
+        class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[100] transition-opacity duration-300"
+        aria-modal="true" role="dialog">
+        <div
+            class="bg-red-900 rounded-xl shadow-2xl p-6 w-11/12 max-w-sm transform scale-100 transition-transform duration-300">
+            <h3 class="text-3xl font-bold text-brand-primary mb-6 text-center">Get In Touch</h3>
+
+            <div class="space-y-4">
+                <!-- Phone Call -->
+                <a href="tel:+923240460398"
+                    class="flex items-center justify-center p-3 bg-red-100 rounded-lg hover:bg-red-200 transition duration-200">
+                    <i class="fas fa-phone-alt text-brand-primary text-xl mr-3"></i>
+                    <span class="text-lg font-semibold text-gray-800">+92 324 0460398</span>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/message/GCCQJTH6ZQF6O1" target="_blank"
+                    class="flex items-center justify-center p-3 bg-green-100 rounded-lg hover:bg-green-200 transition duration-200">
+                    <i class="fab fa-whatsapp text-green-600 text-xl mr-3"></i>
+                    <span class="text-lg font-semibold text-gray-800">WhatsApp Us</span>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:mr.beefburgrz@gmail.com"
+                    class="flex items-center justify-center p-3 bg-blue-100 rounded-lg hover:bg-blue-200 transition duration-200">
+                    <i class="fas fa-envelope text-blue-600 text-xl mr-3"></i>
+                    <span class="text-lg font-semibold text-gray-800">mr.beefburgrz@gmail.com</span>
+                </a>
+            </div>
+
+            <button onclick="document.getElementById('contactModal').classList.add('hidden')"
+                class="mt-6 w-full py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition duration-200">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button (New) -->
+    <button id="scrollToTopBtn"
+        class="fixed bottom-4 right-4 bg-brand-primary text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition duration-300 z-50 opacity-0 pointer-events-none"
+        aria-label="Scroll to Top">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+
+    <script>
+        // Get references to elements
+        const contactBtn = document.getElementById('contactBtn');
+        const contactModal = document.getElementById('contactModal');
+        const homeView = document.getElementById('home');
+        const aboutView = document.getElementById('about');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn'); // New element reference
+
+        // --- Modal Control ---
+        contactBtn.addEventListener('click', () => {
+            contactModal.classList.remove('hidden');
+        });
+
+        contactModal.addEventListener('click', (e) => {
+            // Close modal if background is clicked
+            if (e.target === contactModal) {
+                contactModal.classList.add('hidden');
+            }
+        });
+
+        // --- Navigation Control ---
+        function navigateTo(page) {
+            if (page === 'about') {
+                homeView.classList.add('hidden');
+                aboutView.classList.remove('hidden');
+                document.title = 'Mr. Beef Burgrz - About Us';
+            } else { // 'home'
+                aboutView.classList.add('hidden');
+                homeView.classList.remove('hidden');
+                document.title = 'Mr. Beef Burgrz - Menu and Home';
+            }
+            // Close mobile menu on navigation
+            mobileMenu.classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // --- Scroll to Top Control (New) ---
+
+        // Show/hide button on scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show after scrolling 300px
+                scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        // Scroll to top function
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initial view setup (default to home)
+        window.onload = () => {
+            // We can check the URL hash for basic routing, but default to 'home'
+            const initialPage = window.location.hash.substring(1) === 'about' ? 'about' : 'home';
+            navigateTo(initialPage);
+        }
+
+    </script>
+
+</body>
+
+</html>
