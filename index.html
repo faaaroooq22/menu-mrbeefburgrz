@@ -264,11 +264,10 @@
                     // Changed text-gray-800 to text-white for visibility against the background
                     link.href = 'javascript:void(0);';
                     link.setAttribute('data-scroll-to-elemet', category.target);
-                    link.className = 'category-link flex flex-col items-center flex-shrink-0 p-2 text-center text-white hover:text-brand-primary transition duration-200 rounded-lg hover:bg-red-50';
+                             link.className = 'category-link flex flex-col items-center flex-shrink-0 p-2 text-center text-white hover:text-brand-primary transition duration-200 rounded-lg hover:bg-red-900';
 
                     const imgContainer = document.createElement('div');
-                    imgContainer.className = 'w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center border-2 border-brand-primary overflow-hidden shadow-md';
-
+                    imgContainer.className = 'w-18 h-16 bg-brand-primary/10  flex items-center justify-center overflow-hidden ';
                     const img = document.createElement('img');
                     img.src = category.img; // different img per category
                     img.alt = `${category.name} Logo`;
